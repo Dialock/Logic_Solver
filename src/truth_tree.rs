@@ -17,6 +17,7 @@ pub fn run_tree() {
 
 	let mut is_condition 	= false;
 
+	let mut list: LinkedList<char> = LinkedList::new();
 
 	println!("Truth Tree Solver.");
 	println!("'ZZZ' to quit modules.");
@@ -51,6 +52,9 @@ pub fn run_tree() {
 			}
 
     		input.clear();
+    	}
+
+    	if is_condition {
 
     	}
 	}
@@ -89,4 +93,8 @@ fn check_string(s: &str) -> bool {
 /// isolate_string helps break a string into its parts
 fn isolate_string(s: &str) {
 	println!("In isolate_string: {}", s);
+}
+
+fn evalute_argument() {
+	println!("hello from here");
 }
