@@ -17,7 +17,7 @@ pub fn run_tree() {
 
 	let mut is_condition 	= false;
 
-	let mut list: LinkedList<char> = LinkedList::new();
+	let mut list: LinkedList<String> = LinkedList::new();
 
 	println!("Truth Tree Solver.");
 	println!("'ZZZ' to quit modules.");
@@ -26,16 +26,20 @@ pub fn run_tree() {
     	println!("-------------------------\n");
     	print!("{}({}){}", fore, line_num, end);
 
+    	// this line is for when print! is used.
     	io::stdout().flush()
     	 .expect("flush failed!");
 
     	io::stdin().read_line(&mut input)
     		.expect("Failed to read line");
 
+    	// exit 
     	if input.trim() == "ZZZ" { break; } 
 
+    	// work with conclusion
     	if input.trim() == "C" {
 
+    		// if there is more than one premise already
     		if line_num > 1 && !is_condition {
     			is_condition = true;
     			fore 	= _conc_fore;
@@ -44,18 +48,21 @@ pub fn run_tree() {
 
     	} else {
 
+    		
+
     		let _v = check_string(&input);
 
 			if _v {
-				isolate_string(&input);
+				//list.push_front(input);
+				//isolate_string(&input);
 				line_num += 1;
 			}
 
+			if is_condition {
+    			evalute_argument(&input);
+    		}
+
     		input.clear();
-    	}
-
-    	if is_condition {
-
     	}
 	}
 }
@@ -64,8 +71,6 @@ pub fn run_tree() {
 fn check_string(s: &str) -> bool {
 	
 	let mut list: LinkedList<char> = LinkedList::new();
-
-
 
 	for c in s.chars() {
 		if c == '(' {
@@ -95,6 +100,7 @@ fn isolate_string(s: &str) {
 	println!("In isolate_string: {}", s);
 }
 
-fn evalute_argument() {
+fn evalute_argument(s: &str) {
 	println!("hello from here");
+	isolate_string(&s);
 }
