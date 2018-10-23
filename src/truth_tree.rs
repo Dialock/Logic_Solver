@@ -48,8 +48,6 @@ pub fn run_tree() {
 
     	} else {
 
-    		
-
     		let _v = check_string(&input);
 
 			if _v {
