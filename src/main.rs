@@ -61,6 +61,31 @@ fn main() {
 
 fn get_argument(s: &str, x: i32) {
 
+	let mut input = String::new();
+
+	print!("Enter sentence: ");
+
+	io::stdout().flush()
+		.expect("flush failed!");
+
+	io::stdin().read_line(&mut input)
+		.expect("failed to reads line");
+
+	// exit
+	if input.trim() == "ZZZ" { break; }
+
+	// work wiht line
+	let _v = check_string(&input);
+
+	if _v {
+		truth_table_single::run_truth_table_single(input.trim());
+
+	}
+	
+
+
+	/*
+
 	if s == "single" {
 		truth_table_single::run_truth_table_single();
 	} else {
@@ -68,7 +93,7 @@ fn get_argument(s: &str, x: i32) {
 		truth_tree::run_tree();
 		truth_table_multi::run_true_multi();
 	}
-
+	*/
 
 }
 
