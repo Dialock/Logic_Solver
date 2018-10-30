@@ -1,6 +1,6 @@
 
 use std::io::{self, Write};
-
+use std::collections::LinkedList;
 
 mod truth_tree;
 mod val_inval;
@@ -20,10 +20,10 @@ fn main() {
 		input.clear();
 
 		println!("Select a solver:");
-		println!("(1) Truth Trees");
-		println!("(2) Valid/Invalid");
-		println!("(3) Truth Table (Single)");
-		println!("(4) Truth Table (Multi)");
+		println!("*(1) Truth Trees");
+		println!("*(2) Valid/Invalid");
+		println!(" (3) Truth Table (Single)");
+		println!("*(4) Truth Table (Multi)");
 		println!("(Q) Exit");
 		print!("> ");
 
@@ -36,17 +36,16 @@ fn main() {
 		println!(" ");
 
 		let input_trimmed = input.trim();
-		//input.clear();
+
 		if input_trimmed == "Q" { break; }
 
-		//let choice = input_trimmed.parse().expect("");
 
 		match input_trimmed.parse::<i32>() {
 			Ok(choice) => match choice {
-								1 => get_argument("multi", choice),
-								2 => get_argument("multi", choice),
-								3 => get_argument("single", choice),
-								4 => get_argument("multi", choice),
+								1 => get_arguments("multi", choice),
+								2 => get_arguments("multi", choice),
+								3 => get_arguments("single", choice),
+								4 => get_arguments("multi", choice),
 								_ => println!("'{}' is not an option\n", choice)
 							},
 			Err(..) => println!("Invalid Input: {}", input_trimmed),
@@ -59,44 +58,109 @@ fn main() {
 
 }
 
-fn get_argument(s: &str, x: i32) {
+fn get_arguments(s: &str, x: i32) {
 
+	let mut line_num = 1;
 	let mut input = String::new();
 
-	print!("Enter sentence: ");
+	let _premise_fore 		= "Input Premise (";
+	let _premise_end		= ") 'C' for Conclusion: ";
+	let _conc_fore			= "Input Conclusion(";
+	let _conc_end			= "): ";
 
-	io::stdout().flush()
-		.expect("flush failed!");
+	let mut fore 			= _premise_fore;
+	let mut end 			= _premise_end;
 
-	io::stdin().read_line(&mut input)
-		.expect("failed to reads line");
+	let mut is_condition 	= false;
 
-	// exit
-	if input.trim() == "ZZZ" { break; }
+	let mut list: LinkedList<String> = LinkedList::new();
 
-	// work wiht line
-	let _v = check_string(&input);
+	println!("'ZZZ' to quit modules.");
 
-	if _v {
-		truth_table_single::run_truth_table_single(input.trim());
+	loop {
 
+		if s == "multi" {
+    		println!("-------------------------\n");
+    		print!("{}({}){}", fore, line_num, end);
+    	} 
+    	else {
+    		println!("-------------------------\n");
+    		print!("Input Argument: ");
+    	}
+
+    	// this line is for when print! is used.
+    	io::stdout().flush()
+    	 .expect("flush failed!");
+
+    	io::stdin().read_line(&mut input)
+    		.expect("Failed to read line");
+
+    	// exit 
+    	if input.trim() == "ZZZ" { break; } 
+
+    	// work with conclusion
+    	if input.trim() == "C" {
+
+    		// if there is more than one premise already
+    		if line_num > 1 && !is_condition {
+    			is_condition = true;
+    			fore 	= _conc_fore;
+    			end 	= _conc_end;
+    		}
+
+    	} else {
+
+    		let _v = validate_string(&input);
+
+			if _v {
+				line_num += 1;
+				if x == 3 { is_condition = true; }
+			}
+
+			if is_condition {
+				if x == 1 {  }
+				else if x == 2 {  }
+				else if x == 3 { 
+					truth_table_single::run_truth_table_single(&input); 
+					break;
+				}
+				else if x == 4 {  }
+				else {  }
+    			//evalute_argument(&input);
+    		}
+
+    		input.clear();
+    	}
 	}
-	
-
-
-	/*
-
-	if s == "single" {
-		truth_table_single::run_truth_table_single();
-	} else {
-		val_inval::run_val_inval();
-		truth_tree::run_tree();
-		truth_table_multi::run_true_multi();
-	}
-	*/
 
 }
 
-fn validate_string(s: &str) {
+fn validate_string(s: &str) -> bool {
+
+	let mut para_check: LinkedList<char> = LinkedList::new();
+
+	if ()
+
+
+	for c in s.chars() {
+		if c == '(' {
+			para_check.push_back(c);
+		} else if c == ')' {
+			if para_check.len() == 0 {
+				println!("Parentheses not balanced.");
+				return false;
+			}
+			para_check.pop_back();
+		}
+
+	}
+
+	if para_check.len() > 0 {
+		println!("Parentheses not balanced.");
+		return false;
+	} else {
+		println!("Parentheses balanced.");
+		return true;
+	}
 
 }
