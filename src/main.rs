@@ -39,7 +39,7 @@ fn main() {
 
 		if input_trimmed == "Q" { break; }
 
-
+		/// Parses the user input to select solver
 		match input_trimmed.parse::<i32>() {
 			Ok(choice) => match choice {
 								1 => get_arguments("multi", choice),
@@ -58,6 +58,13 @@ fn main() {
 
 }
 
+/// Retreves arguments from the user.
+///
+/// # Examples
+///
+/// '''
+/// get_arguments("multi", 5);
+/// '''
 fn get_arguments(s: &str, x: i32) {
 
 	let mut line_num = 1;
@@ -135,11 +142,10 @@ fn get_arguments(s: &str, x: i32) {
 
 }
 
+/// Checks that input is a proper proposition
 fn validate_string(s: &str) -> bool {
 
 	let mut para_check: LinkedList<char> = LinkedList::new();
-
-	if ()
 
 
 	for c in s.chars() {
