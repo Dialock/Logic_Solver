@@ -51,8 +51,7 @@ pub fn run_tree() {
     		let _v = check_string(&input);
 
 			if _v {
-				//list.push_front(input);
-				//isolate_string(&input);
+				
 				line_num += 1;
 			}
 

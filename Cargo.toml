@@ -5,3 +5,4 @@ authors = ["Jonathan Sanford <jonathan.l.sanford@wmih.edu>"]
 
 [dependencies]
 text_io = "0.1.7"
+regex = "1"

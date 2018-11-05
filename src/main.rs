@@ -1,6 +1,9 @@
+extern crate regex;
 
 use std::io::{self, Write};
 use std::collections::LinkedList;
+use regex::Regex;
+use std::str::*;
 
 mod truth_tree;
 mod val_inval;
@@ -145,6 +148,8 @@ fn get_arguments(s: &str, x: i32) {
 /// Checks that input is a proper proposition
 fn validate_string(s: &str) -> bool {
 
+
+
 	let mut para_check: LinkedList<char> = LinkedList::new();
 
 
@@ -166,7 +171,17 @@ fn validate_string(s: &str) -> bool {
 		return false;
 	} else {
 		println!("Parentheses balanced.");
-		return true;
+		//return true;
 	}
 
+	let reg = Regex::new(r"[A-Z()<>*v]").unwrap();
+
+	assert!(reg.is_match(s));
+	assert!(reg.is_match("(PvQ)"));
+
+	//println!("\nmatched ok: {}", s);
+
+
+
+	return true;
 }
